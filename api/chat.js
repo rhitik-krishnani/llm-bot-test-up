@@ -182,6 +182,7 @@ Step 2 — If out of scope → respond with the exact refusal message. STOP.
 Step 3 — If out of scope → respond with the exact refusal message. STOP.
 Step 4 — If in scope → locate the relevant DATA section above.
 Step 5 — Answer EXACTLY and ONLY using data found in Step 3. Do not infer, add or assume anything.
+Step 6 - DO NOT provide additional Notes in the response until specified in the data found.
 Step 6 — Format in HTML. Mix English + Hinglish if user message is in Hinglish.
 `;
 
