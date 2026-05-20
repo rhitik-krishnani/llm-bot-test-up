@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>UPGB AI Credit Assistant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#146551;
+    --primary-dark:#0b3b2f;
+    --bg:#f5f8f9;
+    --card:#ffffff;
+    --border:#dfe7e5;
+    --text:#172b28;
+    --muted:#6c7f7a;
+    --success:#0ea76b;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top left,#1f8d6e 0%,transparent 35%),
+    linear-gradient(135deg,#04231d,#146551);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:16px;
+    color:var(--text);
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    width:100%;
+    max-width:1050px;
+    height:95vh;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    border-radius:28px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    background:
+    linear-gradient(
+    135deg,
+    rgba(8,43,35,.96),
+    rgba(20,101,81,.96)
+    );
+
+    color:#fff;
+
+    padding:22px 24px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.title h1{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:1.25rem;
+    font-weight:700;
+}
+
+.title p{
+    margin-top:6px;
+    font-size:.78rem;
+    opacity:.88;
+    letter-spacing:.2px;
+}
+
+.badges{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.badge{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.12);
+    padding:9px 14px;
+    border-radius:999px;
+    font-size:.72rem;
+    backdrop-filter:blur(6px);
+}
+
+/* =========================================================
+   STATUS BAR
+========================================================= */
+
+.status-bar{
+    background:#edf7f3;
+    border-bottom:1px solid #dcece5;
+    padding:11px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.82rem;
+    color:#145341;
+}
+
+.live-engine{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:.75rem;
+    color:#53776d;
+}
+
+.live-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--success);
+    box-shadow:0 0 10px rgba(14,167,107,.7);
+}
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.chat{
+    flex:1;
+    overflow-y:auto;
+    padding:24px;
+    background:
+    linear-gradient(to bottom,#f8fbfa,#f3f7f6);
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.chat::-webkit-scrollbar{
+    width:8px;
+}
+
+.chat::-webkit-scrollbar-thumb{
+    background:#d4dfdc;
+    border-radius:999px;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.msg{
+    max-width:88%;
+    display:flex;
+    gap:12px;
+    animation:fadeUp .25s ease;
+}
+
+.msg.user{
+    align-self:flex-end;
+    flex-direction:row-reverse;
+}
+
+.avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:1rem;
+}
+
+.bot .avatar{
+    background:linear-gradient(135deg,#146551,#0f4d3e);
+    color:#fff;
+}
+
+.user .avatar{
+    background:#d9e8e2;
+    color:#123d32;
+}
+
+.bubble{
+    background:#fff;
+    border-radius:22px;
+    padding:16px 18px;
+    line-height:1.7;
+    font-size:.93rem;
+    box-shadow:
+    0 4px 14px rgba(0,0,0,.05);
+
+    border:1px solid rgba(0,0,0,.03);
+}
+
+.user .bubble{
+    background:
+    linear-gradient(135deg,#0e5544,#0b3b2f);
+
+    color:#fff;
+}
+
+/* =========================================================
+   PROVIDER TAG
+========================================================= */
+
+.provider-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:5px 10px;
+
+    border-radius:999px;
+
+    background:#eef7f2;
+    color:#146551;
+
+    font-size:.7rem;
+    font-weight:600;
+
+    margin-bottom:10px;
+}
+
+.provider-live{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:.74rem;
+    color:#6c7f7a;
+}
+
+.provider-live .pulse{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#0ea76b;
+    animation:pulse 1.2s infinite;
+}
+
+/* =========================================================
+   NOTICE
+========================================================= */
+
+.notice{
+    margin-top:14px;
+    background:#eef7f2;
+    border-left:4px solid var(--primary);
+    padding:12px 14px;
+    border-radius:10px;
+    font-size:.84rem;
+}
+
+/* =========================================================
+   QUICK BUTTONS
+========================================================= */
+
+.quick{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding:14px 16px;
+    border-top:1px solid #edf0ef;
+    background:#fbfcfc;
+}
+
+.quick::-webkit-scrollbar{
+    display:none;
+}
+
+.quick button{
+    white-space:nowrap;
+    border:none;
+
+    background:#e7f0ec;
+    color:#145341;
+
+    padding:11px 15px;
+    border-radius:999px;
+
+    cursor:pointer;
+
+    font-size:.78rem;
+    font-weight:500;
+
+    transition:.22s;
+}
+
+.quick button:hover{
+    background:#d7ebe3;
+    transform:translateY(-1px);
+}
+
+/* =========================================================
+   INPUT AREA
+========================================================= */
+
+.input-area{
+    padding:16px;
+    border-top:1px solid #edf0ef;
+    display:flex;
+    gap:12px;
+    background:#fff;
+}
+
+.input-wrapper{
+    flex:1;
+    position:relative;
+}
+
+.input-area input{
+    width:100%;
+    padding:16px 18px;
+    border-radius:999px;
+    border:1px solid #d5e0dd;
+    outline:none;
+    font-size:.94rem;
+    transition:.2s;
+}
+
+.input-area input:focus{
+    border-color:#146551;
+    box-shadow:0 0 0 4px rgba(20,101,81,.1);
+}
+
+.send-btn{
+    width:56px;
+    border:none;
+    border-radius:50%;
+    background:
+    linear-gradient(135deg,#146551,#0c4c3d);
+
+    color:#fff;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.22s;
+}
+
+.send-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================================================
+   TYPING
+========================================================= */
+
+.typing{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.typing span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#7f968f;
+    animation:blink 1.2s infinite;
+}
+
+.typing span:nth-child(2){
+    animation-delay:.2s;
+}
+
+.typing span:nth-child(3){
+    animation-delay:.4s;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes blink{
+    0%,100%{
+        opacity:.35;
+        transform:translateY(0);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateY(-4px);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    50%{
+        transform:scale(1.4);
+        opacity:.5;
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    body{
+        padding:0;
+    }
+
+    .app{
+        height:100vh;
+        border-radius:0;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .status-bar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+    }
+
+    .msg{
+        max-width:96%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="title">
+
+            <h1>
+                <i class="fas fa-robot"></i>
+                UPGB AI Credit Assistant
+            </h1>
+
+            <p>
+                Intelligent Credit Assistant • Groq + OpenRouter Failover
+            </p>
+
+        </div>
+
+        <div class="badges">
+
+            <div class="badge">
+                🏦 25+ Loan Products
+            </div>
+
+            <div class="badge">
+                📊 CIBIL Analysis
+            </div>
+
+            <div class="badge">
+                ⚡ AI Failover Engine
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STATUS -->
+
+    <div class="status-bar">
+
+        <div>
+            <i class="fas fa-shield-alt"></i>
+            Secure Backend Mode Enabled
+        </div>
+
+        <div class="live-engine">
+            <div class="live-dot"></div>
+            Active AI Routing Enabled
+        </div>
+
+    </div>
+
+    <!-- CHAT -->
+
+    <div class="chat" id="chat">
+
+        <div class="msg bot">
+
+            <div class="avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+
+            <div class="bubble">
+
+                <strong>नमस्ते 👋</strong>
+
+                <br><br>
+
+                मैं UPGB AI Credit Assistant हूँ।
+
+                <br><br>
+
+                आप पूछ सकते हैं:
+
+                <ul style="margin-left:18px;margin-top:10px">
+                    <li>Mera CIBIL 745 hai</li>
+                    <li>Housing loan ROI kya hai?</li>
+                    <li>KCC renewal documents</li>
+                    <li>Private employee bike loan</li>
+                </ul>
+
+                <div class="notice">
+                    Smart AI fallback active for uninterrupted response handling.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick">
+
+        <button onclick="quickAsk('Mera CIBIL 750 hai')">
+            📊 CIBIL 750
+        </button>
+
+        <button onclick="quickAsk('Housing loan ROI')">
+            🏠 Housing Loan
+        </button>
+
+        <button onclick="quickAsk('KCC renewal documents')">
+            🌾 KCC Renewal
+        </button>
+
+        <button onclick="quickAsk('Two wheeler private employee')">
+            🏍️ Bike Loan
+        </button>
+
+        <button onclick="quickAsk('All loan list')">
+            📋 All Loans
+        </button>
+
+    </div>
+
+    <!-- INPUT -->
+
+    <div class="input-area">
+
+        <div class="input-wrapper">
+
+            <input
+            type="text"
+            id="prompt"
+            placeholder="अपना सवाल लिखें..."
+            />
+
+        </div>
+
+        <button class="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   IMPORTANT
+========================================================= */
+
+/*
+DO NOT PUT API KEYS HERE
+
+Vercel Environment Variables:
+
+GROQ_API_KEY
+OPENROUTER_API_KEY
+
+These will be used through backend API routes.
+*/
+
+
+/* =========================================================
+   MODELS
+========================================================= */
+
+const GROQ_MODEL = "llama-3.3-70b-versatile";
+
+const OPENROUTER_MODEL = "qwen/qwen-2.5-72b-instruct";
+
+
+/* =========================================================
+   SYSTEM PROMPT
+========================================================= */
+
+const SYSTEM_PROMPT = `
+You are UPGB (Uttar Pradesh Gramin Bank) Smart Credit Assistant.
+
+Rules:
+- Reply in Hindi + English mix.
+- Be concise but professional.
+- Use HTML formatting.
+- Only answer banking, loan, CIBIL, MSME, KCC and UPGB related queries.
+- If unrelated, politely refuse by saying exactly:
+This question is out of my scope, kindly ask questions related to banking, loan, CIBIL, MSME, KCC and UPGB related queries only.
+
+Minimum CIBIL: 675
+
+Housing Loan ROI:
+800+ = 7.20%
+751-799 = 7.45%
+726-750 = 7.85%
+701-725 = 8.05%
+675-700 = 9.05%
+
+Car Loan ROI:
+800+ = 7.60%
+751-799 = 7.85%
+726-750 = 8.40%
+701-725 = 9.15%
+675-700 = 10.50%
+
+Two Wheeler Loan:
+Only Govt/PSU employees eligible.
+Private employees NOT eligible.
+
+KCC:
+No CIBIL required.
+`;
+
+
+/* =========================================================
+   CHAT UI
+========================================================= */
+
+const chat = document.getElementById("chat");
+
+function addMessage(text, type="bot"){
+
+    const div = document.createElement("div");
+
+    div.className = `msg ${type}`;
+
+    div.innerHTML = `
+        <div class="avatar">
+            <i class="fas fa-${type === 'bot' ? 'robot' : 'user'}"></i>
+        </div>
+
+        <div class="bubble">
+            ${text}
+        </div>
+    `;
+
+    chat.appendChild(div);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function quickAsk(text){
+
+    document.getElementById("prompt").value = text;
+
+    sendMessage();
+}
+
+function showTyping(provider = "Routing Request"){
+
+    const div = document.createElement("div");
+
+    div.className = "msg bot";
+
+    div.id = "typing";
+
+    div.innerHTML = `
+        <div class="avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+
+        <div class="bubble">
+
+            <div class="provider-live">
+                <div class="pulse"></div>
+                ${provider}
+            </div>
+
+            <br>
+
+            <div class="typing">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+    `;
+
+    chat.appendChild(div);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function updateTypingProvider(provider){
+
+    const typing = document.getElementById("typing");
+
+    if(!typing) return;
+
+    const label = typing.querySelector(".provider-live");
+
+    if(label){
+
+        label.innerHTML = `
+            <div class="pulse"></div>
+            Generating via ${provider}
+        `;
+    }
+}
+
+function removeTyping(){
+
+    const el = document.getElementById("typing");
+
+    if(el){
+        el.remove();
+    }
+}
+
+
+/* =========================================================
+   BACKEND API CALL
+========================================================= */
+
+async function getAIResponse(message){
+
+    updateTypingProvider("Groq");
+
+    const response = await fetch("/api/chat",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            message
+        })
+
+    });
+
+    if(!response.ok){
+
+        throw new Error("AI server unavailable");
+    }
+
+    return await response.json();
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
+async function sendMessage(){
+
+    const input = document.getElementById("prompt");
+
+    const message = input.value.trim();
+
+    if(!message){
+        return;
+    }
+
+    addMessage(message,"user");
+
+    input.value = "";
+
+    showTyping();
+
+    try{
+
+        const result = await getAIResponse(message);
+
+        removeTyping();
+
+        addMessage(`
+
+            <div class="provider-tag">
+                <i class="fas fa-microchip"></i>
+                ${result.provider}
+            </div>
+
+            ${result.text.replace(/\n/g,"<br>")}
+
+        `);
+
+    }catch(err){
+
+        removeTyping();
+
+        addMessage(`
+            ❌ Unable to process request currently.
+            <br><br>
+            ${err.message}
+        `);
+
+        console.error(err);
+    }
+}
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document
+.getElementById("prompt")
+.addEventListener("keypress",function(e){
+
+    if(e.key === "Enter"){
+        sendMessage();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
