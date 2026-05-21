@@ -61,6 +61,13 @@ STRICT PRODUCT BOUNDARY:
 - KCC data → ONLY for KCC
 - MSME data → ONLY for MSME
 - Two Wheeler Loan data → ONLY for Two Wheeler Loan
+- Mortgage Loan data → ONLY for Mortgage Loan
+- Personal Loan data → ONLY for Personal Loan
+- Business Loan data → ONLY for Business Loan
+- Education Loan data → ONLY for Education Loan
+- Tractor Loan data → ONLY for Tractor Loan
+- KCC Loan data → ONLY for KCC Loan
+- SHG Loan data → ONLY for SHG Loan
 
 FORBIDDEN BEHAVIOR:
 - Car Loan documents CANNOT be used for Home Loan.
@@ -121,21 +128,175 @@ THEN respond EXACTLY:
 
 ## Housing Loan – Rate of Interest (ROI) Based on CIBIL Score
 
-- CIBIL Score 800 & Above → 7.20%
-- CIBIL Score 751–799 → 7.45%
-- CIBIL Score 726–750 → 7.85%
-- CIBIL Score 701–725 → 8.05%
-- CIBIL Score 675–700 → 9.05%
+- CIBIL Score 840 & Above → 7.20%
+- CIBIL Score 780–839 → 7.45%
+- CIBIL Score 750–779 → 7.85%
+- CIBIL Score 710–749 → 8.05%
+- CIBIL Score Below 710 → 9.05%
+- CIBIL Score -1 → 7.45%
 
 ### DATA: CAR LOAN ROI
 
 ## Car Loan – Rate of Interest (ROI) Based on CIBIL Score
 
-- CIBIL Score 800 & Above → 7.60%
-- CIBIL Score 751–799 → 7.85%
-- CIBIL Score 726–750 → 8.40%
-- CIBIL Score 701–725 → 9.15%
-- CIBIL Score 675–700 → 10.50%
+- CIBIL Score 840 & Above → 7.60%
+- CIBIL Score 780–839 → 7.85%
+- CIBIL Score 750–779 → 8.40%
+- CIBIL Score 710–749 → 9.15%
+- CIBIL Score 690–709 → 10.50%
+- CIBIL Score Below 690 → 12.00%
+- CIBIL Score (-1) → 7.85%
+
+### DATA: MORTGAGE LOAN (RESIDENTIAL PROPERTY) ROI
+
+## Mortgage Loan (Residential Property) – Rate of Interest (ROI) Based on CIBIL Score
+
+- CIBIL Score 790 & Above → 10.35%
+- CIBIL Score 709–789 → 10.55%
+- CIBIL Score (-1) → 10.55%
+- CIBIL Score 690–708 → 11.55%
+- CIBIL Score Below 690 → 12.35%
+
+### DATA: MORTGAGE LOAN (COMMERCIAL PROPERTY) ROI
+
+## Mortgage Loan (Commercial Property) – Rate of Interest (ROI) Based on CIBIL Score
+
+- CIBIL Score 790 & Above → 10.95%
+- CIBIL Score 709–789 → 11.15%
+- CIBIL Score (-1) → 11.15%
+- CIBIL Score 690–708 → 11.95%
+- CIBIL Score Below 690 → 12.85%
+
+### DATA: PERSONAL LOAN (SALARY ACCOUNT HOLDER) ROI
+
+## Personal Loan (Salary Account Holder) – Rate of Interest (ROI) Based on CIBIL Score
+
+- CIBIL Score 850 & Above → 10.25%
+- CIBIL Score 795–849 → 10.75%
+- CIBIL Score 700–798 → 11.25%
+- CIBIL Score Below 700 → 13.00%
+- CIBIL Score (-1) → 11.50%
+
+### DATA: PERSONAL LOAN (OTHER CASES) ROI
+
+## Personal Loan (Other Cases) – Rate of Interest (ROI) Based on CIBIL Score
+
+- CIBIL Score 801 & Above → 14.45%
+- CIBIL Score 710–800 → 15.45%
+- CIBIL Score 690–709 → 16.45%
+- CIBIL Score Below 690 → 17.45%
+- CIBIL Score (-1) → 15.45%
+
+### DATA: PERSONAL LOAN TO STAFF ROI
+
+## Personal Loan to Staff – Rate of Interest (ROI)
+
+- All Cases → 10.25%
+
+### DATA: BUSINESS / MSME LOAN ROI
+
+## Business / MSME Loan – Rate of Interest (ROI) Based on Loan Range
+
+- Up to ₹3 lakh → 11.00%
+- ₹3 lakh – ₹10 lakh → 11.50%
+
+### DATA: MSME LOAN (RATING BASED) ROI
+
+## MSME Loan – Rate of Interest (ROI) Based on Rating
+
+- Rating A+ → 9.50%
+- Rating A → 10.40%
+- Rating B+ → 11.50%
+- Rating B → 12.60%
+- Rating C → 13.70%
+- Rating D → 15.00%
+
+### DATA: SARAL VYAPAR YOJNA ROI
+
+## Saral Vyapar Yojna (Loan up to ₹10 lakh) – Rate of Interest (ROI)
+
+- All Cases → 10.50%
+
+### DATA: GCC / SCC / WCC LOAN ROI
+
+## GCC / SCC / WCC Loan – Rate of Interest (ROI) Based on Loan Range
+
+- Up to ₹3 lakh → 11.00%
+- ₹3 lakh – ₹10 lakh → 11.50%
+
+### DATA: TRADE FINANCE – WORKING CAPITAL ROI
+
+## Trade Finance – Working Capital – Rate of Interest (ROI) Based on Rating
+
+- Rating A+ → 9.50%
+- Rating A → 10.40%
+- Rating B+ → 11.60%
+- Rating B → 12.60%
+- Rating D → 13.70%
+
+### DATA: SRTO ROI
+
+## SRTO – Rate of Interest (ROI) Based on Loan Range
+
+- Up to ₹3 lakh → 11.00%
+- Above ₹3 lakh up to ₹10 lakh → 11.50%
+
+### DATA: ROAD TRANSPORT OPERATOR (SRTO) ROI
+
+## Road Transport Operator (SRTO) – Rate of Interest (ROI) Based on Rating
+
+- Rating A+ → 9.50%
+- Rating A → 10.40%
+- Rating B+ → 11.50%
+- Rating B → 12.60%
+- Rating D → 13.70%
+
+### DATA: KCC LOAN ROI
+
+## KCC Loan – Rate of Interest (ROI) Based on Loan Range
+
+- Up to ₹3 lakh → 10.00%
+- Above ₹3 lakh → 11.00%
+
+### DATA: KISAN TATKAL RIN YOJNA ROI
+
+## Kisan Tatkal Rin Yojna – Rate of Interest (ROI)
+
+- All Cases → 9.00%
+
+### DATA: KRISAK AWAS RIN YOJNA ROI
+
+## Krisak Awas Rin Yojna – Rate of Interest (ROI)
+
+- All Cases → 11.00%
+
+### DATA: TRACTOR LOAN ROI
+
+## Tractor Loan – Rate of Interest (ROI) Based on Usage
+
+- Agriculture End Use → 13.00%
+- Agriculture cum Commercial Use → 13.50%
+- Tatkal Tractor Loan → 14.00%
+- Old Tractor → 11.25%
+
+### DATA: EDUCATION LOAN ROI
+
+## Education Loan – Rate of Interest (ROI) Based on Loan Range
+
+- Up to ₹7.50 lakh (0.5% rebate to girl student) → 10.50%
+- Above ₹7.50 lakh (0.5% rebate to girl child) → 11.15%
+
+### DATA: TWO WHEELER LOAN ROI
+
+## Two Wheeler Loan Scheme – Rate of Interest (ROI)
+
+- All Cases → 13.65%
+
+### DATA: SELF HELP GROUP (SHG) LOAN ROI
+
+## Self Help Group (SHG) Loan – Rate of Interest (ROI)
+
+- All Cases → 7.00%
 
 ### DATA: TWO WHEELER LOAN
 
