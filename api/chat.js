@@ -121,7 +121,7 @@ THEN respond EXACTLY:
 "Information is not available in the provided data."
 
 ### DATA: CIBIL
-- Minimum CIBIL score required: 675
+- Minimum CIBIL score required: 695
 - Exception: KCC requires NO CIBIL
 
 ### DATA: HOUSING LOAN ROI
